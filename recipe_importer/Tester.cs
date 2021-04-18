@@ -18,6 +18,7 @@ namespace recipe_importer
 
                 string recipesJsonStr = SchemaSerializer.SerializeObject(recipes);
                 
+                // FIXME: line andings are currently not write correct to file 
                 // correct the line endings for host OS
                 //recipesJsonStr = Regex.Replace(recipesJsonStr, @"\\r\\n?|\\n", Environment.NewLine);
 

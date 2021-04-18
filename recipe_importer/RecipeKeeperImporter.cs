@@ -203,25 +203,32 @@ namespace recipe_importer
                 TimeSpan cookingTime = ParseCookingTime(htmlRecipe);
                 string recipeCalories = ParseCalories(htmlRecipe);
 
-                //TODO check required properties and only then add it to recipe list
-                //FIXME the last recipe is always empty
+                List<string> emptyStringList = new List<string>();
+                emptyStringList.Add("");
 
-                recipes.Add(new SchemaRecipe 
+                if((recipeName == "") && instructions.Capacity == emptyStringList.Capacity && instructions[0] == emptyStringList[0])
                 {
-                    name = recipeName,
-                    image = imagePath,
-                    recipeYield = yield,
-                    recipeInstructions = instructions,
-                    recipeIngredient = ingredients,
-                    author = recipeAuthor,
-                    prepTime = preparationTime,
-                    cookTime = cookingTime,
-                    
-                    nutrition = new NutritionInformation
+                    // skipe empty recipe 
+                }
+                else
+                {
+                    recipes.Add(new SchemaRecipe 
                     {
-                        calories = recipeCalories
-                    }
-                }); 
+                        name = recipeName,
+                        image = imagePath,
+                        recipeYield = yield,
+                        recipeInstructions = instructions,
+                        recipeIngredient = ingredients,
+                        author = recipeAuthor,
+                        prepTime = preparationTime,
+                        cookTime = cookingTime,
+                        
+                        nutrition = new NutritionInformation
+                        {
+                            calories = recipeCalories
+                        }
+                    }); 
+                }
             }
 
             return recipes;
